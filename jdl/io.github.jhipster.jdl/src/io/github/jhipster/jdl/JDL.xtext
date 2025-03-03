@@ -502,5 +502,80 @@ terminal REG_EXP: '/' ANY '/';
 terminal fragment ANY: !('\n'|'\r'|'/')* ('\r'? '\n')?;
 
 /* =========================================================================
+ * UI
+ * ========================================================================= */
+
+JdlPanel:
+	'panel' name=ValidID '{'
+		dimensions?=JdlDimensions
+		font?=JdlFont
+		columns=Integer
+		components+=JdlComponent*;
+	'}';
+
+JdlComponent:
+    JdlLabel |
+	JdlIcon |
+	JdlImage |
+	JdlInputText |
+	JdlInputTextArea |
+	JdlButton |
+	JdlCheckbox
+
+JdlDimensions:
+    width?=Integer
+	height?=Integer
+
+JdlFont:
+	font?=String
+	fontSize?=Integer
+
+JdlLabel:
+	'label' name=ValidID '{'
+		binding?=String
+		dimensions?=JdlDimensions
+		font?=JdlFont
+		format?=String
+		text?=String
+	'}';
+
+JdlIcon:
+	'icon' name=ValidID '{'
+	    binding?=String
+	'}';
+
+JdlImage:
+	'image' name=ValidID '{'
+    	binding?=String
+	'}';
+
+JdlInputText:
+	'input' name=ValidID '{'
+		binding?=String
+		format?=String
+		required?='required'
+	'}';
+
+JdlInputTextArea:
+	'textarea' name=ValidID '{'
+		binding?=String
+		required?='required'
+		rows?=Integer
+	'}';
+
+JdlButton:
+	'button' name=ValidID '{'
+		action?=String
+		label?=String
+		icon?=String
+	'}';
+
+JdlCheckbox:
+	'checkbox' name=ValidID '{'
+		action?=String
+		label?=String
+	'}';
+
+/* =========================================================================
  * END OF GRAMMAR DEFINITION 
  * ========================================================================= */
