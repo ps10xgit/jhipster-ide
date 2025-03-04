@@ -24,3 +24,17 @@ Go to extension marketplace, search for <b>jhipster</b> and install.
 
 [azure-devops-image]: https://dev.azure.com/jhipster-ide/jhipster-ide/_apis/build/status/jhipster.jhipster-ide?branchName=main
 [azure-devops-url-main]: https://dev.azure.com/jhipster-ide/jhipster-ide/_build
+
+## Build
+
+Download and install JDK 17.
+
+Set JAVA_HOME in terminal to JDK 17
+```bash
+export JAVA_HOME=<jdk_17_directory>
+``` 
+
+To build the project and install the artifacts with Maven
+```bash
+./mvnw -B clean install
+```
