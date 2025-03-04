@@ -505,75 +505,91 @@ terminal fragment ANY: !('\n'|'\r'|'/')* ('\r'? '\n')?;
  * UI
  * ========================================================================= */
 
-JdlPanel:
+JdlUiPanel:
 	'panel' name=ValidID '{'
-		dimensions?=JdlDimensions
-		font?=JdlFont
-		columns=Integer
-		components+=JdlComponent*;
+		title?=JdlUiTitle
+		dimensions?=JdlUiDimensions
+		components+=JdlUiComponent*
 	'}';
 
-JdlComponent:
-    JdlLabel |
-	JdlIcon |
-	JdlImage |
-	JdlInputText |
-	JdlInputTextArea |
-	JdlButton |
-	JdlCheckbox
+JdlUiComponent:
+      JdlUiPanel
+    | JdlUiLabel
+    | JdlUiIcon
+    | JdlUiImage
+	| JdlUiInputText
+	| JdlUiInputTextArea
+	| JdlUiButton
+	| JdlUiCheckbox;
 
-JdlDimensions:
-    width?=Integer
-	height?=Integer
+JdlUiAction:
+	'action' action=STRING;
 
-JdlFont:
-	font?=String
-	fontSize?=Integer
+JdlUiBinding:
+	'binding' binding=STRING;
 
-JdlLabel:
+JdlUiFormat:
+	'format' format=STRING;
+
+JdlUiTitle:
+	'title' title=STRING;
+
+JdlUiDimensions:
+    'width' width=INT
+	'height' height=INT;
+
+JdlUiFont:
+	'name' name=STRING
+	'size' size=INT;
+
+JdlUiLabel:
 	'label' name=ValidID '{'
-		binding?=String
-		dimensions?=JdlDimensions
-		font?=JdlFont
-		format?=String
-		text?=String
+		binding?=JdlUiBinding
+		format?=JdlUiFormat
+		title?=JdlUiTitle
+		dimensions?=JdlUiDimensions
+		font?=JdlUiFont
 	'}';
 
-JdlIcon:
+JdlUiIcon:
 	'icon' name=ValidID '{'
-	    binding?=String
+		binding?=JdlUiBinding
+		dimensions?=JdlUiDimensions
 	'}';
 
-JdlImage:
+JdlUiImage:
 	'image' name=ValidID '{'
-    	binding?=String
+		binding?=JdlUiBinding
+		dimensions?=JdlUiDimensions
 	'}';
 
-JdlInputText:
+JdlUiInputText:
 	'input' name=ValidID '{'
-		binding?=String
-		format?=String
+		binding?=JdlUiBinding
+		format?=JdlUiFormat
+		dimensions?=JdlUiDimensions
 		required?='required'
 	'}';
 
-JdlInputTextArea:
+JdlUiInputTextArea:
 	'textarea' name=ValidID '{'
-		binding?=String
+		binding?=JdlUiBinding
 		required?='required'
-		rows?=Integer
+		('rows' rows=INT)?
 	'}';
 
-JdlButton:
+JdlUiButton:
 	'button' name=ValidID '{'
-		action?=String
-		label?=String
-		icon?=String
+		action?=JdlUiAction
+		title?=JdlUiTitle
+		('icon' icon=STRING)?
 	'}';
 
-JdlCheckbox:
+JdlUiCheckbox:
 	'checkbox' name=ValidID '{'
-		action?=String
-		label?=String
+		binding?=JdlUiBinding
+		required?='required'
+		title?=JdlUiTitle
 	'}';
 
 /* =========================================================================
